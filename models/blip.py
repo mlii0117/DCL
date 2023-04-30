@@ -30,7 +30,7 @@ class BLIP_Decoder(nn.Module):
                  prompt = 'a picture of ',
                  tokenizer = None,
                  embed_dim = 256,     
-                 queue_size = 57600,
+                 queue_size = 65536,
                  momentum = 0.995,
                  args = None
                  ):
@@ -89,6 +89,7 @@ class BLIP_Decoder(nn.Module):
         if args.dataset_name == 'iu_xray':
             self.iu_proj = nn.Linear(768*2, 768)
             self.iu_proj_m = nn.Linear(768*2, 768)
+            queue_size = 1380
             self.model_pairs = [[self.visual_encoder, self.visual_encoder_m],
                             [self.vision_proj, self.vision_proj_m],
                             [self.text_encoder, self.text_encoder_m],
